@@ -1,0 +1,25 @@
+name: "Basecast Build Pages Action"
+description: |
+  Generate baseprint HTML/PDF preview from source and deploy to GitHub Pages.
+inputs:
+  defaults-file:
+    description: "Pandoc defaults file path"
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: "Checkout source"
+      uses: actions/checkout@v4
+    - name: "Generate baseprint and HTML/PDF preview"
+      uses: docker://docker.io/castedo/basecast:20230905
+      with:
+        args: >-
+          basecast
+          --defaults ${{ inputs.defaults-file }}
+          --baseprint baseprint
+          --web _site
+          --pdf _site/article.pdf
+    - name: "Upload Pages artifact"
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: "_site/"

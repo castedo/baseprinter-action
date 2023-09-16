@@ -11,14 +11,13 @@ runs:
     - name: "Checkout source"
       uses: actions/checkout@v4
     - name: "Generate baseprint and HTML/PDF preview"
-      uses: docker://docker.io/castedo/basecast:20230905
+      uses: docker://docker.io/castedo/basecast:20230915
       with:
         args: >-
           basecast
           --defaults ${{ inputs.defaults-file }}
           --baseprint baseprint
-          --web _site
-          --pdf _site/article.pdf
+          --outdir _site
     - name: "Upload Pages artifact"
       uses: actions/upload-pages-artifact@v2
       with:

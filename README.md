@@ -13,7 +13,27 @@ pandoc defaults file (relative to the repository).
 A pandoc defaults file can specify the input source files.
 
 
+## Quick Start
+
+The quickest way to get started is to use
+[basecastbot-example](https://github.com/castedo/basecastbot-example/)
+as a template to [create a new repository](
+https://github.com/new?template_owner=castedo&template_name=basecastbot-example
+).
+
+Alternatively, just add a workflow file, such as
+[basecastbot-example .github/workflows/pages-deploy.yaml](
+https://github.com/castedo/basecastbot-example/blob/main/.github/workflows/pages-deploy.yaml
+)
+or the example below,
+to an existing repository.
+
+
 ## Example usage
+
+The following is an example of a workflow YAML file that can be placed at
+`.github/workflows/basecastbot.yaml`.
+This workflow will generate a baseprint and deploy an HTML/PDF preview to GitHub Pages.
 
 ```yaml
 name: Deploy baseprint preview to GitHub Pages

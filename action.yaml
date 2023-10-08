@@ -11,7 +11,7 @@ runs:
     - name: "Checkout source"
       uses: actions/checkout@v4
     - name: "Generate baseprint and HTML/PDF preview"
-      uses: docker://docker.io/castedo/basecast:20230915
+      uses: docker://docker.io/castedo/basecast:20231007
       with:
         args: >-
           basecast

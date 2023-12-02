@@ -1,16 +1,16 @@
-# Basecast action
+# Baseprinter action
 
 This is a reusable automation workflow for [GitHub Actions](https://github.com/features/actions)
-that generates and deploys baseprints and HTML/PDF previews using
-[basecast](https://baseprints.singlesource.pub/basecast).
+that generates HTML/PDF previews of Baseprint document snapshots
+using [baseprinter](https://try.perm.pub/baseprinter).
 
 
 ## Inputs
 
 The `defaults-file` input parameter is required.
 It specifies the path to the location of a
-pandoc defaults file (relative to the repository).
-A pandoc defaults file can specify the input source files.
+Pandoc defaults file (relative to the repository).
+A Pandoc defaults file can specify the input source files.
 
 
 ## Quick Start
@@ -32,15 +32,16 @@ to an existing repository.
 ## Example usage
 
 The following is an example of a workflow YAML file that can be placed at
-`.github/workflows/basecastbot.yaml`.
-This workflow will generate a baseprint and deploy an HTML/PDF preview to GitHub Pages.
+`.github/workflows/baseprinter.yaml`.
+This workflow will generate a Baseprint document snapshot and deploy an HTML/PDF preview
+to GitHub Pages.
 
 ```yaml
-name: Deploy baseprint preview to GitHub Pages
+name: Deploy Baseprint preview to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [$default-branch]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -54,7 +55,7 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - uses: castedo/basecast-build-action@v1
+      - uses: castedo/baseprinter-action@v2
         with:
           defaults-file: "pandocin.yaml"
   deploy:

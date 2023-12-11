@@ -11,7 +11,7 @@ runs:
     - name: "Checkout source"
       uses: actions/checkout@v4
     - name: "Generate HTML/PDF previews of Baseprint document snapshot"
-      uses: docker://docker.io/castedo/baseprinter:20231029
+      uses: docker://docker.io/castedo/baseprinter:20231211
       with:
         args: >-
           baseprinter

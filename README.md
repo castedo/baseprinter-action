@@ -1,37 +1,36 @@
-# Baseprinter action
+# Baseprinter Action
 
 This is a reusable automation workflow for [GitHub Actions](https://github.com/features/actions)
 that generates HTML/PDF previews of Baseprint document snapshots
-using [baseprinter](https://try.perm.pub/baseprinter).
+using [Baseprinter](https://try.perm.pub/baseprinter).
 
 
 ## Inputs
 
 The `defaults-file` input parameter is required.
-It specifies the path to the location of a
-Pandoc defaults file (relative to the repository).
-A Pandoc defaults file can specify the input source files.
+It specifies the path to a
+Pandoc defaults file,
+which can specify the input source files.
 
 
 ## Quick Start
 
-The quickest way to get started is to use
-[basecastbot-example](https://github.com/castedo/basecastbot-example/)
+To quickly get started, use
+[`baseprint-starter`](https://github.com/castedo/baseprint-starter/)
 as a template to [create a new repository](
-https://github.com/new?template_owner=castedo&template_name=basecastbot-example
+https://github.com/new?template_owner=castedo&template_name=baseprint-starter
 ).
 
-Alternatively, just add a workflow file, such as
-[basecastbot-example .github/workflows/pages-deploy.yaml](
-https://github.com/castedo/basecastbot-example/blob/main/.github/workflows/pages-deploy.yaml
+Alternatively, add a workflow file to an existing repository.
+Use [`baseprint-starter .github/workflows/baseprinter.yaml`](
+https://github.com/castedo/baseprint-starter/blob/main/.github/workflows/baseprinter.yaml
 )
-or the example below,
-to an existing repository.
+or the following example.
 
 
-## Example usage
+## Example Usage
 
-The following is an example of a workflow YAML file that can be placed at
+The following is an example of a workflow YAML file that you can place at
 `.github/workflows/baseprinter.yaml`.
 This workflow will generate a Baseprint document snapshot and deploy an HTML/PDF preview
 to GitHub Pages.
@@ -41,12 +40,12 @@ name: Deploy Baseprint preview to GitHub Pages
 
 on:
   push:
-    branches: [$default-branch]
+    branches: [main]
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Enables manual workflow runs from the Actions tab
   workflow_dispatch:
 
-# Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+# Grant necessary permissions for Pages deployment
 permissions:
   pages: write
   id-token: write
@@ -55,7 +54,7 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - uses: castedo/baseprinter-action@v2
+      - uses: castedo/baseprinter-action@v3
         with:
           defaults-file: "pandocin.yaml"
   deploy:

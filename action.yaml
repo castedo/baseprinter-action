@@ -11,6 +11,7 @@ runs:
     - name: "Checkout source"
       uses: actions/checkout@v4
     - name: "Prepare autobaseprint branch"
+      shell: bash
       run: |
         git --version
         git config user.name  "Baseprinter Action Bot"
@@ -28,6 +29,7 @@ runs:
           --baseprint baseprint
           --outdir _site
     - name: "Commit generated baseprint"
+      shell: bash
       run: |
         git add baseprint
         git commit -m "generated baseprint snapshot"

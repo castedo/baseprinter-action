@@ -10,6 +10,15 @@ runs:
   steps:
     - name: "Checkout source"
       uses: actions/checkout@v4
+    - name: "Prepare autobaseprint branch"
+      run: |
+        git --version
+        git config user.name  "Baseprinter Action Bot"
+        git config user.email "<>"
+        git switch autobaseprint || git switch -c autobaseprint
+        git merge --no-commit main
+        git status
+        rm -rf baseprint
     - name: "Generate HTML/PDF previews of Baseprint document snapshot"
       uses: docker://docker.io/castedo/baseprinter:20231211
       with:
@@ -18,6 +27,11 @@ runs:
           --defaults ${{ inputs.defaults-file }}
           --baseprint baseprint
           --outdir _site
+    - name: "Commit generated baseprint"
+      run: |
+        git add baseprint
+        git commit -m "generated baseprint snapshot"
+        git push
     - name: "Upload Pages artifact"
       uses: actions/upload-pages-artifact@v2
       with:

@@ -13,7 +13,6 @@ runs:
     - name: "Prepare autobaseprint branch"
       shell: bash
       run: |
-        git --version
         git config user.name  "Baseprinter Action Bot"
         git config user.email "<>"
         git switch autobaseprint || git switch -c autobaseprint
@@ -33,7 +32,7 @@ runs:
       run: |
         git add baseprint
         git commit -m "generated baseprint snapshot"
-        git push
+        git push origin autobaseprint
     - name: "Upload Pages artifact"
       uses: actions/upload-pages-artifact@v2
       with:

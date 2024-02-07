@@ -45,8 +45,10 @@ on:
   # Enables manual workflow runs from the Actions tab
   workflow_dispatch:
 
-# Grant necessary permissions for Pages deployment
+# Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+# and committing generated baseprint snapshot to autobaseprint branch
 permissions:
+  contents: write
   pages: write
   id-token: write
 
@@ -54,7 +56,7 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - uses: castedo/baseprinter-action@v3
+      - uses: castedo/baseprinter-action@v4
         with:
           defaults-file: "pandocin.yaml"
   deploy:
@@ -63,7 +65,7 @@ jobs:
     steps:
       - name: "Deploy to GitHub Pages"
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v2
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

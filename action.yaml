@@ -15,7 +15,8 @@ runs:
       run: |
         git config user.name  "Baseprinter Action Bot"
         git config user.email "<>"
-        git switch autobaseprint || git switch -c autobaseprint
+        git fetch origin autobaseprint || git branch autobaseprint
+        git switch autobaseprint
         git merge --no-commit main
         git status
         rm -rf baseprint

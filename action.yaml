@@ -24,7 +24,7 @@ runs:
         git status
         rm -rf baseprint
     - name: "Generate HTML/PDF previews of Baseprint document snapshot"
-      uses: docker://docker.io/castedo/baseprinter:20231211
+      uses: docker://registry.gitlab.com/perm.pub/dock/baseprinter:20240813
       with:
         args: >-
           baseprinter
@@ -38,6 +38,6 @@ runs:
         git commit -m "generated baseprint snapshot"
         git push origin autobaseprint
     - name: "Upload Pages artifact"
-      uses: actions/upload-pages-artifact@v2
+      uses: actions/upload-pages-artifact@v4
       with:
         path: "_site/"

@@ -2,9 +2,12 @@ name: "Baseprinter Action"
 description: |
   Generate HTML/PDF previews of Baseprint document snapshot and deploy to GitHub Pages.
 inputs:
-  defaults-file:
-    description: "Pandoc defaults file path"
-    required: true
+  xargs-input:
+    description: "xargs input file of baseprinter arguments"
+    default: "baseprinter-xargs.txt"
+  baseprint-path:
+    description: "Path to generated baseprint snapshot contents"
+    default: "baseprint"
 runs:
   using: 'composite'
   steps:
@@ -22,22 +25,14 @@ runs:
         git log -1 --format=%H
         git merge --no-commit $GITHUB_REF_NAME
         git status
-        rm -rf baseprint
+        rm -rf ${{ inputs.baseprint-path }} 
     - name: "Generate HTML/PDF previews of Baseprint document snapshot"
       uses: docker://registry.gitlab.com/perm.pub/dock/baseprinter:20240813
       with:
-        args: >-
-          baseprinter
-          --defaults ${{ inputs.defaults-file }}
-          --baseprint baseprint
-          --outdir _site
+        args: xargs --arg-file ${{ inputs.xargs-input }} baseprinter
     - name: "Commit generated baseprint"
       shell: bash
       run: |
-        git add baseprint
+        git add {{ inputs.baseprint-path }}
         git commit -m "generated baseprint snapshot"
         git push origin autobaseprint
-    - name: "Upload Pages artifact"
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: "_site/"

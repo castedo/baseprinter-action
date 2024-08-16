@@ -33,6 +33,6 @@ runs:
     - name: "Commit generated baseprint"
       shell: bash
       run: |
-        git add {{ inputs.baseprint-path }}
+        git add ${{ inputs.baseprint-path }}
         git commit -m "generated baseprint snapshot"
         git push origin autobaseprint

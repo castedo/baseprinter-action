@@ -1,16 +1,10 @@
 # Baseprinter Action
 
 This is a reusable automation workflow for [GitHub Actions](https://github.com/features/actions)
-that generates HTML/PDF previews of Baseprint document snapshots
-using [Baseprinter](https://try.perm.pub/baseprinter).
-
-
-## Inputs
-
-The `defaults-file` input parameter is required.
-It specifies the path to a
-Pandoc defaults file,
-which can specify the input source files.
+that runs [Baseprinter](https://try.perm.pub/baseprinter) to generate a Baseprint
+document snapshot and commit it to a branch named `autobaseprint`.
+This reusable workflow is also useful for automatically generating an HTML/PDF preview
+website.
 
 
 ## Quick Start
@@ -21,52 +15,29 @@ as a template to [create a new repository](
 https://github.com/new?template_owner=castedo&template_name=baseprint-starter
 ).
 
-Alternatively, add a workflow file to an existing repository.
-Use [`baseprint-starter .github/workflows/baseprinter.yaml`](
-https://github.com/castedo/baseprint-starter/blob/main/.github/workflows/baseprinter.yaml
-)
-or the following example.
+Alternatively, use the contents of
+[`baseprint-starter`](https://github.com/castedo/baseprint-starter/) as an example.
 
 
-## Example Usage
+## Inputs
 
-The following is an example of a workflow YAML file that you can place at
-`.github/workflows/baseprinter.yaml`.
-This workflow will generate a Baseprint document snapshot and deploy an HTML/PDF preview
-to GitHub Pages.
+### `xargs-input`
 
-```yaml
-name: Deploy Baseprint preview to GitHub Pages
+Default value: `baseprinter-xargs.txt`.
 
-on:
-  push:
-    branches: [main]
+This input parameter specifies the file that contains the arguments to pass to
+`baseprinter`. The file format is the input file format understood by `xargs`.
 
-  # Enables manual workflow runs from the Actions tab
-  workflow_dispatch:
+An example is
+[`baseprinter-xargs.txt` in `baseprint-starter`](
+https://github.com/castedo/baseprint-starter/blob/main/baseprinter-xargs.txt
+).
 
-# Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-# and committing generated baseprint snapshot to autobaseprint branch
-permissions:
-  contents: write
-  pages: write
-  id-token: write
+### `baseprint-path`
 
-jobs:
-  build:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: castedo/baseprinter-action@v5
-        with:
-          defaults-file: "pandocin.yaml"
-  deploy:
-    needs: build
-    runs-on: ubuntu-22.04
-    steps:
-      - name: "Deploy to GitHub Pages"
-        id: deployment
-        uses: actions/deploy-pages@v2
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-```
+Default value: `baseprint`.
+
+Do not use this path in sources.
+Baseprinter will generate baseprint snapshot contents into the path assigned to
+`baseprint-path`.
+This path will be automatically committed and pushed to the `autobaseprint` branch.

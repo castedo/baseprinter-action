@@ -21,16 +21,15 @@ Alternatively, use the contents of
 
 ## Inputs
 
-### `xargs-input`
+### `just-recipe`
 
-Default value: `baseprinter-xargs.txt`.
+Default value: `baseprint`.
 
-This input parameter specifies the file that contains the arguments to pass to
-`baseprinter`. The file format is the input file format understood by `xargs`.
+This input parameter specifies the [just](https://just.systems) recipe to run.
 
-An example is
-[`baseprinter-xargs.txt` in `baseprint-starter`](
-https://github.com/castedo/baseprint-starter/blob/main/baseprinter-xargs.txt
+An example [just](https://just.systems) recipe is in
+[`justfile` in `baseprint-starter`](
+https://github.com/castedo/baseprint-starter/blob/main/justfile
 ).
 
 ### `baseprint-path`

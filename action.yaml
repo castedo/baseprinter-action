@@ -27,7 +27,7 @@ runs:
         git status
         rm -rf ${{ inputs.baseprint-path }} 
     - name: "Generate HTML/PDF previews of Baseprint document snapshot"
-      uses: docker://registry.gitlab.com/perm.pub/dock/baseprinter:25103-53f
+      uses: docker://registry.gitlab.com/perm.pub/dock/baseprinter:25231-dc5
       with:
         args: just ${{ inputs.just-recipe }}
     - name: "Commit generated baseprint"
